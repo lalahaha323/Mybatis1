@@ -40,28 +40,28 @@ public class SqlSessionFactoryUtils {
         }
     }
 
-//    public static SqlSessionFactory getSqlSessionFactory2() {
-//        synchronized(LOCK) {
-//            PooledDataSource dataSource = new PooledDataSource();
-//            dataSource.setDriver("com.mysql.jdbc.Driver");
-//            dataSource.setUsername("root");
-//            dataSource.setPassword("lcl20000323");
-//            dataSource.setUrl("jdbc:mysql://localhost:3306/chapter3");
-//            dataSource.setDefaultAutoCommit(false);
-//            TransactionFactory transactionFactory = new JdbcTransactionFactory();
-//            Environment environment = new Environment("development", transactionFactory, dataSource);
-//            Configuration configuration = new Configuration(environment);
-//            configuration.getTypeAliasRegistry().registerAlias("role", Role.class);
-//            configuration.addMapper(RoleMapper.class);
-//            configuration.addMapper(RoleMapper2.class);
-//            sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
-//            return sqlSessionFactory;
-//        }
-//    }
+    public static SqlSessionFactory getSqlSessionFactory2() {
+        synchronized(LOCK) {
+            PooledDataSource dataSource = new PooledDataSource();
+            dataSource.setDriver("com.mysql.cj.jdbc.Driver");
+            dataSource.setUsername("root");
+            dataSource.setPassword("lcl20000323");
+            dataSource.setUrl("jdbc:mysql://localhost:3306/chapter3");
+            dataSource.setDefaultAutoCommit(false);
+            TransactionFactory transactionFactory = new JdbcTransactionFactory();
+            Environment environment = new Environment("development", transactionFactory, dataSource);
+            Configuration configuration = new Configuration(environment);
+            configuration.getTypeAliasRegistry().registerAlias("role", Role.class);
+            configuration.addMapper(RoleMapper.class);
+            configuration.addMapper(RoleMapper2.class);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+            return sqlSessionFactory;
+        }
+    }
 
     public static SqlSession openSqlSession() {
         if(sqlSessionFactory == null) {
-            getSqlSessionFactory();
+            getSqlSessionFactory2();
         }
         return sqlSessionFactory.openSession();
 
