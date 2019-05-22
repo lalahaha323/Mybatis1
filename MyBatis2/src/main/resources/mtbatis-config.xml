@@ -25,6 +25,8 @@
     </environments>
     <!--映射文件-->
     <mappers>
+        <!--这里写的是对应配置文件的路径
+        -->
         <mapper resource=""/>
     </mappers>
 </configuration>
